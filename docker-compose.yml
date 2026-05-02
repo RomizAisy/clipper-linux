@@ -1,0 +1,40 @@
+
+
+services:
+  web:
+    build: .
+    container_name: flask_app
+    env_file:
+      - .env
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/app
+      - ./uploads:/app/uploads
+      - ~/.cache:/root/.cache
+    depends_on:
+      - redis
+    restart: always
+
+  worker:
+    build: .
+    container_name: rq_worker
+    command: rq worker clipper
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - ~/.cache:/root/.cache
+    depends_on:
+      - redis
+    restart: always
+
+  redis:
+    image: redis:7
+    container_name: redis_server
+    volumes:
+      - redis_data:/data
+    restart: always
+
+volumes:
+  redis_data:
