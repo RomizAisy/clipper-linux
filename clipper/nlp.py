@@ -33,11 +33,14 @@ def merge_segments(segments, max_gap=0.6):
 
 
 
-embedder = SentenceTransformer("all-MiniLM-L6-v2")
+embedder = SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
 
 def detect_topic_changes(chunks, threshold=0.65):
     texts = [c["text"] for c in chunks]
-    embeddings = embedder.encode(texts)
+    if len(texts) == 0:
+        return []
+
+    embeddings = embedder.encode(texts, device="cpu")
 
     clips = []
     current = chunks[0].copy()

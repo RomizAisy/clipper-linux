@@ -1,10 +1,7 @@
-from faster_whisper import WhisperModel
+from helper.whisper_services import get_model
 
-model = WhisperModel(
-    "small",
-    device="cpu",
-    compute_type="int8"
-)
+
+model = get_model()
 
 
 def transcribe_audio(audio_path):
