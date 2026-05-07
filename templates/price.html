@@ -3,156 +3,168 @@
 {% block title %}Pricing{% endblock %}
 
 {% block content %}
-<section class="max-w-7xl mx-auto px-6 py-20">
+<section class="py-28 px-6 bg-gradient-to-b from-black via-neutral-950 to-black text-white">
+  <div class="max-w-7xl mx-auto">
 
-    <!-- HERO -->
-    <div class="text-center mb-16 space-y-4">
-        <h1 class="text-4xl md:text-5xl font-bold">Choose Your Plan</h1>
-        <p class="text-gray-500 max-w-2xl mx-auto">
-            Whether you’re just starting or need full features, we’ve got a plan for you.
-        </p>
+    <!-- HEADER -->
+    <div class="text-center mb-20">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Choose Your Plan
+      </h1>
+      <p class="text-neutral-400 max-w-2xl mx-auto">
+        Whether you’re just starting or scaling your content, we’ve got you covered.
+      </p>
     </div>
 
-    <!-- PRICING CARDS -->
-    <div class="grid gap-8 md:grid-cols-3">
+    <!-- ===================== -->
+    <!-- PRICING GRID -->
+    <!-- ===================== -->
 
-        <!-- Free Plan -->
-        <div class="border rounded-2xl p-8 flex flex-col items-center text-center hover:shadow-xl transition">
-            <h2 class="text-xl font-semibold mb-2">Free</h2>
-            <p class="text-gray-500 mb-6">Perfect for trying out Clippera</p>
-            <span class="text-4xl font-bold mb-4">$0</span>
-            <span class="text-gray-500 mb-6">per month</span>
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-20 text-center">
 
-            <ul class="text-left mb-6 space-y-2">
-                <li>✔ 5 clips per month</li>
-                <li>✔ Auto subtitles</li>
-                <li>✔ Basic aspect ratios</li>
-                <li class="line-through text-gray-300">✖ Premium features</li>
-            </ul>
+    <!-- STARTER -->
+    <div class="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur hover:bg-white/10 transition duration-300">
+        <h2 class="text-xl font-semibold mb-2">Starter</h2>
+        <p class="text-neutral-400 mb-6">Beginner</p>
 
-            {% if session.get("user_id") %}
-            <a href="/auto-clipper" class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
-                Start Free
-            </a>
-            {% else %}
-            <a href="{{ url_for('auth.register') }}" class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
-                Sign Up Free
-            </a>
-            {% endif %}
+        <div class="mb-6">
+        <span class="text-4xl font-bold">Rp 20K</span>
+        <span class="text-neutral-400 text-sm"> / bulan</span>
         </div>
 
-        <!-- Pro Plan -->
-        <div class="border-2 border-black rounded-2xl p-8 flex flex-col items-center text-center shadow-md hover:shadow-xl transition">
-            <h2 class="text-xl font-semibold mb-2">Pro</h2>
-            <p class="text-gray-500 mb-6">For creators who need more power</p>
-            <span class="text-4xl font-bold mb-4">$19</span>
-            <span class="text-gray-500 mb-6">per month</span>
+        <ul class="text-sm text-neutral-300 space-y-3 mb-8">
+        <li>5 clip / hari</li>
+        <li>Auto subtitle</li>
+        <li>Semua aspect ratio</li>
+        </ul>
 
-            <ul class="text-left mb-6 space-y-2">
-                <li>✔ 100 clips per month</li>
-                <li>✔ Auto subtitles</li>
-                <li>✔ All aspect ratios</li>
-                <li>✔ Priority processing</li>
-            </ul>
+        <a href="/register" class="block py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
+        Mulai Starter
+        </a>
+    </div>
 
-            {% if session.get("user_id") %}
-            <a href="{{ url_for('payment.buytokenpage') }}" class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
-                Upgrade to Pro
-            </a>
-            {% else %}
-            <a href="{{ url_for('auth.register') }}" class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
-                Sign Up & Upgrade
-            </a>
-            {% endif %}
+    <!-- PRO (HIGHLIGHT BORDER ONLY) -->
+    <div class="p-8 rounded-2xl border-2 border-orange-400 bg-white/5 backdrop-blur hover:bg-white/10 transition duration-300 relative">
+
+        <!-- Badge -->
+        <div class="absolute top-0 right-0 px-3 py-1 text-xs font-semibold
+                    bg-gradient-to-r from-orange-400 to-red-500
+                    rounded-bl-xl rounded-tr-xl">
+        MOST POPULAR
         </div>
 
-        <!-- Enterprise Plan -->
-        <div class="border rounded-2xl p-8 flex flex-col items-center text-center hover:shadow-xl transition">
-            <h2 class="text-xl font-semibold mb-2">Enterprise</h2>
-            <p class="text-gray-500 mb-6">For teams and businesses</p>
-            <span class="text-4xl font-bold mb-4">Custom</span>
-            <span class="text-gray-500 mb-6">per month</span>
+        <h2 class="text-xl font-semibold mb-2">Pro</h2>
+        <p class="text-neutral-400 mb-6">Most popular plan</p>
 
-            <ul class="text-left mb-6 space-y-2">
-                <li>✔ Unlimited clips</li>
-                <li>✔ Team accounts</li>
-                <li>✔ Dedicated support</li>
-                <li>✔ Custom features</li>
-            </ul>
-
-            <a href="/contact" class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
-                Contact Sales
-            </a>
+        <div class="mb-6">
+        <span class="text-4xl font-bold">Rp 70K</span>
+        <span class="text-neutral-400 text-sm"> / bulan</span>
         </div>
+
+        <ul class="text-sm text-neutral-300 space-y-3 mb-8">
+        <li>10 clip / hari</li>
+        <li>Priority processing</li>
+        <li>Semua fitur</li>
+        </ul>
+
+        <a href="/register"
+        class="block py-3 rounded-lg font-semibold
+                bg-gradient-to-r from-red-500 via-orange-400 to-orange-300
+                hover:from-red-400 hover:to-orange-200
+                transition-all duration-300">
+        Upgrade ke Pro
+        </a>
+    </div>
+
+    <!-- MAX -->
+    <div class="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur hover:bg-white/10 transition duration-300">
+        <h2 class="text-xl font-semibold mb-2">Max</h2>
+        <p class="text-neutral-400 mb-6">Power user</p>
+
+        <div class="mb-6">
+        <span class="text-4xl font-bold">Rp 150K</span>
+        <span class="text-neutral-400 text-sm"> / bulan</span>
+        </div>
+
+        <ul class="text-sm text-neutral-300 space-y-3 mb-8">
+        <li>20 clip / hari</li>
+        <li>Top priority</li>
+        <li>Max performance</li>
+        </ul>
+
+        <a href="/register" class="block py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
+        Upgrade ke Max
+        </a>
+    </div>
 
     </div>
 
-</section>
-<!-- COMPARISON TABLE -->
-<div class="mt-24">
-    <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold">Compare Plans</h2>
-        <p class="text-gray-500 mt-2">
-            See what you get in each plan
-        </p>
-    </div>
-
+    <!-- ===================== -->
+    <!-- COMPARISON TABLE -->
+    <!-- ===================== -->
     <div class="overflow-x-auto">
-        <table class="w-full border border-gray-200 rounded-xl overflow-hidden">
-            <thead class="bg-gray-100">
-                <tr class="text-left">
-                    <th class="p-4 font-semibold">Features</th>
-                    <th class="p-4 text-center">Free</th>
-                    <th class="p-4 text-center">Pro</th>
-                    <th class="p-4 text-center">Enterprise</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y">
 
-                <tr>
-                    <td class="p-4">Clips per month</td>
-                    <td class="p-4 text-center">5</td>
-                    <td class="p-4 text-center">100</td>
-                    <td class="p-4 text-center">Unlimited</td>
-                </tr>
+      <table class="w-full text-sm text-left border border-white/10 rounded-xl overflow-hidden">
 
-                <tr class="bg-gray-50">
-                    <td class="p-4">Auto subtitles</td>
-                    <td class="p-4 text-center">✔</td>
-                    <td class="p-4 text-center">✔</td>
-                    <td class="p-4 text-center">✔</td>
-                </tr>
+        <!-- HEADER -->
+        <thead class="bg-white/5 text-neutral-300">
+          <tr>
+            <th class="p-4">Fitur</th>
+            <th class="p-4 text-center">Free</th>
+            <th class="p-4 text-center">Starter</th>
+            <th class="p-4 text-center">Pro</th>
+            <th class="p-4 text-center">Max</th>
+          </tr>
+        </thead>
 
-                <tr>
-                    <td class="p-4">Aspect ratios</td>
-                    <td class="p-4 text-center">Basic</td>
-                    <td class="p-4 text-center">All</td>
-                    <td class="p-4 text-center">All</td>
-                </tr>
+        <tbody class="divide-y divide-white/10 text-neutral-300">
 
-                <tr class="bg-gray-50">
-                    <td class="p-4">Priority processing</td>
-                    <td class="p-4 text-center text-gray-300">✖</td>
-                    <td class="p-4 text-center">✔</td>
-                    <td class="p-4 text-center">✔</td>
-                </tr>
+          <tr>
+            <td class="p-4">Clip Limit</td>
+            <td class="text-center">3 total</td>
+            <td class="text-center">5 / hari</td>
+            <td class="text-center">10 / hari</td>
+            <td class="text-center">20 / hari</td>
+          </tr>
 
-                <tr>
-                    <td class="p-4">Team accounts</td>
-                    <td class="p-4 text-center text-gray-300">✖</td>
-                    <td class="p-4 text-center text-gray-300">✖</td>
-                    <td class="p-4 text-center">✔</td>
-                </tr>
+          <tr>
+            <td class="p-4">Auto Clipper</td>
+            <td class="text-center">✔</td>
+            <td class="text-center">✔</td>
+            <td class="text-center">✔</td>
+            <td class="text-center">✔</td>
+          </tr>
 
-                <tr class="bg-gray-50">
-                    <td class="p-4">Dedicated support</td>
-                    <td class="p-4 text-center text-gray-300">✖</td>
-                    <td class="p-4 text-center text-gray-300">✖</td>
-                    <td class="p-4 text-center">✔</td>
-                </tr>
+          <tr>
+            <td class="p-4">Auto Subtitle</td>
+            <td class="text-center">✔</td>
+            <td class="text-center">✔</td>
+            <td class="text-center">✔</td>
+            <td class="text-center">✔</td>
+          </tr>
 
-            </tbody>
-        </table>
+          <tr>
+            <td class="p-4">Aspect Ratio</td>
+            <td class="text-center">Basic</td>
+            <td class="text-center">All</td>
+            <td class="text-center">All</td>
+            <td class="text-center">All</td>
+          </tr>
+
+          <tr>
+            <td class="p-4">Processing Speed</td>
+            <td class="text-center">Normal</td>
+            <td class="text-center">Faster</td>
+            <td class="text-center font-semibold text-orange-300">Priority</td>
+            <td class="text-center font-semibold text-red-400">Highest</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
-</div>
+
+  </div>
+</section>
 {% endblock %}

@@ -4,6 +4,53 @@
 
 {% block content %}
 
+<section class="relative max-w-6xl mx-auto px-6 pt-32 pb-20 text-center">
+
+  <!-- BACKGROUND GLOW -->
+  <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px]
+              bg-gradient-to-r from-red-500/30 via-orange-400/20 to-transparent
+              blur-3xl rounded-full -z-10">
+  </div>
+
+  <!-- BADGE -->
+  <div class="inline-flex items-center gap-2 px-4 py-2 mb-8
+              rounded-full border border-white/10
+              bg-white/5 backdrop-blur-md">
+
+    <span class="w-2 h-2 rounded-full
+                 bg-gradient-to-r from-red-500 to-orange-400
+                 shadow-[0_0_20px_rgba(249,115,22,0.8)] animate-pulse">
+    </span>
+
+    <span class="text-sm text-neutral-300 font-medium tracking-wide">
+      Auto Clipper Tool
+    </span>
+  </div>
+
+  <!-- TITLE -->
+  <h1 class="text-4xl md:text-7xl font-black tracking-tight leading-tight text-white">
+
+    Create Clips in
+
+    <span class="bg-gradient-to-r from-red-500 via-orange-400 to-orange-200
+                 bg-clip-text text-transparent">
+      One Click
+    </span>
+
+  </h1>
+
+  <!-- DESCRIPTION -->
+  <p class="mt-6 max-w-2xl mx-auto text-neutral-400 text-base md:text-lg leading-relaxed">
+    Upload a video or paste a link.
+    We automatically generate clips ready to post.
+  </p>
+
+  
+
+</section>
+
+
+<!-- USER STATS LAMA
 <h1 class="text-3xl font-bold mb-2">Dashboard</h1>
 <h1 class="text-2xl font-bold mb-2">Welcome {{ user }}</h1>
 
@@ -17,8 +64,109 @@
     <span>👑</span>
 {% endif %}
 </p>
+-->
 
+<!-- USER STATS -->
+<section class="max-w-6xl mx-auto px-6 mb-20">
 
+  <div class="grid gap-6 grid-cols-1 md:grid-cols-3">
+
+    <!-- WELCOME CARD -->
+    <div class="relative overflow-hidden rounded-2xl border border-white/10
+                bg-white/5 backdrop-blur-xl p-6">
+
+      <!-- Glow -->
+      <div class="absolute top-0 right-0 w-32 h-32
+                  bg-red-500/10 blur-3xl rounded-full">
+      </div>
+
+      <p class="text-sm text-neutral-400 mb-2">
+        Welcome Back
+      </p>
+
+      <h2 class="text-2xl font-bold text-white">
+        {{ user }}
+      </h2>
+
+      <p class="mt-3 text-sm text-neutral-500">
+        Ready to create more viral clips 🚀
+      </p>
+    </div>
+
+    <!-- DAILY LIMIT -->
+    <div class="relative overflow-hidden rounded-2xl border border-white/10
+                bg-white/5 backdrop-blur-xl p-6">
+
+      <!-- Glow -->
+      <div class="absolute top-0 right-0 w-32 h-32
+                  bg-orange-500/10 blur-3xl rounded-full">
+      </div>
+
+      <p class="text-sm text-neutral-400 mb-2">
+        Daily Usage
+      </p>
+
+      {% if daily_left == -1 %}
+
+      <h2 class="text-3xl font-black text-white">
+        Unlimited
+      </h2>
+
+      <p class="mt-3 text-sm text-green-400">
+        No usage limit
+      </p>
+
+      {% else %}
+
+      <h2 class="text-3xl font-black text-white">
+        {{ daily_left }}
+        <span class="text-lg text-neutral-500 font-medium">
+          / {{ user.daily_limit }}
+        </span>
+      </h2>
+
+      <p class="mt-3 text-sm text-neutral-500">
+        Remaining clips today
+      </p>
+
+      {% endif %}
+    </div>
+
+    <!-- PLAN -->
+    <div class="relative overflow-hidden rounded-2xl border border-white/10
+                bg-white/5 backdrop-blur-xl p-6">
+
+      <!-- Glow -->
+      <div class="absolute top-0 right-0 w-32 h-32
+                  bg-yellow-500/10 blur-3xl rounded-full">
+      </div>
+
+      <p class="text-sm text-neutral-400 mb-2">
+        Current Plan
+      </p>
+
+      <div class="flex items-center gap-3">
+
+        <h2 class="text-3xl font-black text-white capitalize">
+          {{ user.plan }}
+        </h2>
+
+        {% if user.plan != "free" %}
+        <span class="text-2xl">
+          👑
+        </span>
+        {% endif %}
+
+      </div>
+
+      <p class="mt-3 text-sm text-neutral-500">
+        Active subscription plan
+      </p>
+    </div>
+
+  </div>
+
+</section>
 
 <h1 class="text-3xl font-bold my-8 text-center">Your Videos</h1>
 

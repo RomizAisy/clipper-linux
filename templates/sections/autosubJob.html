@@ -1,101 +1,209 @@
+<!-- AUTO SUBTITLE JOBS -->
+<section class="max-w-7xl mx-auto px-6 pb-24">
 
-<!-- JOBS -->
-<section class="mx-auto px-6 pb-24">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-        {% for item in jobs_autosub %}
-        {% set job = item.job %}
+    {% for item in jobs_autosub %}
+    {% set job = item.job %}
 
-        {% if job.job_type == "autosub" %}
-        <div class="group border rounded-2xl bg-white shadow-sm hover:shadow-md transition p-5 flex flex-col justify-between">
+    {% if job.job_type == "autosub" %}
 
-            <!-- HEADER -->
-            <div class="space-y-2">
-                <h3 class="font-semibold text-lg">
-                    Job #{{ job.id }}
-                </h3>
+    <!-- JOB CARD -->
+    <div class="job-card relative overflow-hidden rounded-3xl border border-white/10
+                bg-white/5 backdrop-blur-xl p-6 md:p-8
+                shadow-xl shadow-black/20">
 
-                <div class="text-sm text-gray-500 flex items-center gap-2">
-                    <span class="
-                        px-2 py-1 rounded-md text-xs
-                        {% if job.status == 'finished' %}
-                            bg-green-100 text-green-700
-                        {% elif job.status == 'processing' %}
-                            bg-yellow-100 text-yellow-700
-                        {% else %}
-                            bg-red-100 text-red-700
-                        {% endif %}
-                    ">
-                        {{ job.status }}
-                    </span>
+      <!-- BACKGROUND GLOW -->
+      <div class="absolute top-0 right-0 w-72 h-72
+                  bg-gradient-to-br from-red-500/10 via-orange-400/10 to-transparent
+                  blur-3xl rounded-full pointer-events-none">
+      </div>
 
-                    <span>{{ job.progress }}%</span>
-                </div>
-            </div>
+      <!-- HEADER -->
+      <div class="relative flex items-start justify-between gap-4 mb-6">
 
-            <!-- BODY -->
-            <div class="mt-4">
+        <div>
+          <h3 class="text-2xl font-bold text-white">
+            Job #{{ job.id }}
+          </h3>
 
-                {% if job.status == "processing" %}
-                    <p class="text-sm text-gray-600 animate-pulse">
-                        {{ job.step }}
-                    </p>
+          <p class="text-sm text-neutral-500 mt-1">
+            AI subtitle generation
+          </p>
+        </div>
 
-                {% elif job.status == "failed" %}
-                    <p class="text-red-500 font-medium">Failed</p>
+        <!-- STATUS -->
+        <div class="flex items-center gap-3">
 
-                {% elif job.status == "finished" %}
+          <span class="
+            px-4 py-2 rounded-full text-xs font-semibold border
 
-                    <h4 class="font-medium mb-3">Auto Subtitled Video</h4>
+            {% if job.status == 'finished' %}
+              bg-green-500/10 text-green-400 border-green-500/20
 
-                    <!-- VIDEO PREVIEW -->
-                    <div class="relative aspect-video bg-black rounded-xl overflow-hidden">
+            {% elif job.status == 'processing' %}
+              bg-yellow-500/10 text-yellow-300 border-yellow-500/20
 
-                        <img
-                            loading="lazy"
-                            src="{{ url_for('autosub.autosub_thumbnail', job_id=job.id) }}"
-                            class="w-full h-full object-contain cursor-pointer video-thumb
-                                   transition duration-300 group-hover:scale-105"
-                            data-video-src="{{ url_for('autosub.autosub_stream', job_id=job.id) }}"
-                        >
+            {% else %}
+              bg-red-500/10 text-red-400 border-red-500/20
+            {% endif %}
+          ">
+            {{ job.status }}
+          </span>
 
-                        <!-- play overlay -->
-                        <div class="absolute inset-0 flex items-center justify-center
-                                    bg-black/20 opacity-0 group-hover:opacity-100
-                                    transition pointer-events-none">
-
-                            <div class="bg-white/90 rounded-full p-3 shadow">
-                                ▶
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- ACTION -->
-                    <a
-                        href="{{ url_for('autosub.autosub_download', job_id=job.id) }}"
-                        class="inline-block mt-4 text-sm font-medium text-blue-600 hover:text-blue-800 transition">
-                        ⬇ Download
-                    </a>
-
-                {% else %}
-                    <small class="text-gray-400">Waiting…</small>
-                {% endif %}
-
-            </div>
-
-            <!-- FOOTER -->
-            <button
-                class="delete-job-btn mt-5 text-sm text-red-500 hover:text-red-700 transition"
-                data-job-id="{{ job.id }}">
-                Delete
-            </button>
+          <span class="text-sm text-neutral-400">
+            {{ job.progress }}%
+          </span>
 
         </div>
-        {% endif %}
-        {% endfor %}
+
+      </div>
+
+      <!-- BODY -->
+      {% if job.status == "processing" %}
+
+      <!-- PROGRESS -->
+      <div class="mb-6">
+
+        <div class="w-full h-3 rounded-full bg-white/10 overflow-hidden">
+          <div class="h-full rounded-full
+                      bg-gradient-to-r from-red-500 via-orange-400 to-orange-300"
+               style="width: {{ job.progress }}%">
+          </div>
+        </div>
+
+        <p class="mt-3 text-sm text-neutral-400 animate-pulse">
+          {{ job.step }}
+        </p>
+
+      </div>
+
+      {% elif job.status == "failed" %}
+
+      <div class="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+        <p class="text-red-400 font-medium">
+          Subtitle generation failed.
+        </p>
+      </div>
+
+      {% elif job.status == "finished" %}
+
+      <!-- READY -->
+      <div class="flex items-center justify-between mb-5">
+
+        <h4 class="text-lg font-semibold text-white">
+          Subtitle Ready
+        </h4>
+
+        <span class="text-sm text-neutral-500">
+          MP4 Output
+        </span>
+
+      </div>
+
+      <!-- VIDEO CARD -->
+      <div class="group rounded-2xl overflow-hidden
+                  border border-white/10
+                  bg-black/30 backdrop-blur-md
+                  hover:border-orange-400/40
+                  transition-all duration-300">
+
+        <!-- VIDEO -->
+        <div class="relative aspect-video bg-black overflow-hidden">
+
+          <img
+            loading="lazy"
+
+            src="{{ url_for('autosub.autosub_thumbnail',
+                  job_id=job.id) }}"
+
+            class="w-full h-full object-contain cursor-pointer
+                   video-thumb transition duration-500
+                   group-hover:scale-105"
+
+            data-video-src="{{ url_for('autosub.autosub_stream',
+                  job_id=job.id) }}"
+          >
+
+          <!-- OVERLAY -->
+            <div class="absolute inset-0 bg-black/20
+                        opacity-0 group-hover:opacity-100
+                        transition duration-300
+                        flex items-center justify-center
+                        pointer-events-none">
+
+            <div class="w-14 h-14 rounded-full
+                        bg-white/90 text-black
+                        flex items-center justify-center
+                        text-xl shadow-xl">
+                ▶
+            </div>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="p-4 flex items-center justify-between gap-4">
+
+          <div>
+            <p class="text-sm font-medium text-white">
+              Auto Subtitle Video
+            </p>
+
+            <p class="text-xs text-neutral-500 mt-1">
+              Ready to download
+            </p>
+          </div>
+
+          <a
+            href="{{ url_for('autosub.autosub_download',
+                  job_id=job.id) }}"
+
+            class="shrink-0 px-4 py-2 rounded-lg
+                   text-sm font-medium text-white
+                   bg-gradient-to-r from-red-500 to-orange-400
+                   hover:opacity-90 transition">
+
+            Download
+          </a>
+
+        </div>
+
+      </div>
+
+      {% else %}
+
+      <div class="p-4 rounded-xl border border-white/10 bg-white/5">
+        <p class="text-sm text-neutral-500">
+          Waiting for processing...
+        </p>
+      </div>
+
+      {% endif %}
+
+      <!-- FOOTER -->
+      <div class="mt-8 pt-6 border-t border-white/10 flex justify-end">
+
+        <button
+          class="delete-job-btn px-4 py-2 rounded-xl
+                 text-sm font-medium
+                 bg-red-500/10 text-red-400
+                 hover:bg-red-500/20
+                 transition duration-300"
+
+          data-job-id="{{ job.id }}">
+
+          Delete Job
+        </button>
+
+      </div>
 
     </div>
+
+    {% endif %}
+    {% endfor %}
+
+  </div>
+
 </section>
-
-

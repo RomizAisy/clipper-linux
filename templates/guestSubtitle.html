@@ -4,88 +4,146 @@
 
 {% block content %}
 
-<section class="max-w-5xl mx-auto px-6 py-24">
+<section class="bg-[#0a0a0a] text-[#f0ede8] min-h-screen">
 
-    <!-- HERO TEXT -->
-    <div class="text-center space-y-6 mb-10">
+  <!-- HERO -->
+  <div class="max-w-6xl mx-auto px-6 py-24 text-center space-y-6">
 
-        <h3 class="text-1xl md:text-1xl font-semibold tracking-tight leading-tight">
-            AUTO SUBTITLE TOOL
-        </h3>
+    <p class="text-sm uppercase tracking-widest text-red-400">
+      Feature
+    </p>
 
-        <h1 class="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-            Add Subtitle in One Click
-        </h1>
+    <h1 class="font-syne text-4xl md:text-7xl font-black uppercase tracking-tight">
+      Auto Subtitle
+    </h1>
 
-        <p class="text-gray-500 max-w-2xl mx-auto">
-            Upload a video or paste a link. We will add animated subtitle in your videos.
+    <p class="text-neutral-400 max-w-2xl mx-auto">
+      Generate subtitle otomatis dengan akurasi tinggi.
+      Tingkatkan engagement tanpa effort tambahan.
+    </p>
+
+    <a href="/register"
+       class="inline-block mt-6 px-6 py-3 rounded-lg font-semibold text-white
+              bg-gradient-to-r from-red-500 via-orange-400 to-orange-300
+              hover:from-red-400 hover:to-orange-200
+              transition-all duration-300 shadow-lg shadow-orange-400/20
+              hover:shadow-orange-400/40 hover:-translate-y-0.5">
+      Coba Sekarang
+    </a>
+
+  </div>
+
+  <!-- VIDEO DEMO -->
+  <div class="max-w-5xl mx-auto px-6 pb-24">
+
+    <div class="relative">
+
+      <div class="absolute -inset-6 blur-3xl opacity-30
+                  bg-gradient-to-r from-red-500 via-orange-400 to-orange-300">
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+        <div class="aspect-video w-full">
+          <video class="w-full h-full object-cover"
+                 autoplay muted loop playsinline>
+            <source src="/static/videos/sample_A.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FEATURES -->
+  <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+
+    <!-- TEXT -->
+    <div>
+      <h2 class="text-3xl md:text-5xl font-black uppercase">
+        Kenapa Auto Clipper?
+      </h2>
+
+      <p class="mt-4 text-neutral-400 leading-relaxed">
+        Subtitle otomatis membantu audiens memahami konten bahkan tanpa suara.
+        Cocok untuk TikTok, Reels, dan YouTube Shorts.
+      </p>
+
+      <ul class="mt-6 space-y-3 text-neutral-300">
+        <li>Generate subtitle otomatis</li>
+        <li>Sinkron dengan audio</li>
+        <li>Burn langsung ke video</li>
+        <li>Meningkatkan engagement</li>
+      </ul>
+    </div>
+
+    <!-- IMAGE / PREVIEW -->
+    <div class="relative">
+      <div class="absolute -inset-6 blur-3xl opacity-30
+                  bg-gradient-to-r from-red-500 via-orange-400 to-orange-300">
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+        <img src="/static/videos/sample.jpg" class="w-full" alt="preview">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="max-w-6xl mx-auto px-6 py-24">
+
+    <h2 class="text-center text-3xl md:text-5xl font-black mb-16">
+      Cara Kerja
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <div class="p-8 bg-white/5 rounded-2xl border border-white/10 text-center">
+        <div class="text-4xl mb-4">📤</div>
+        <h3 class="font-semibold text-lg">Upload Video</h3>
+        <p class="text-sm text-neutral-400 mt-2">
+          Upload atau paste link video Anda
         </p>
+      </div>
+
+      <div class="p-8 bg-white/5 rounded-2xl border border-white/10 text-center">
+        <div class="text-4xl mb-4">🤖</div>
+        <h3 class="font-semibold text-lg">AI Transcribe</h3>
+        <p class="text-sm text-neutral-400 mt-2">
+          AI menambahkan subtitle otomatis
+        </p>
+      </div>
+
+      <div class="p-8 bg-white/5 rounded-2xl border border-white/10 text-center">
+        <div class="text-4xl mb-4">🚀</div>
+        <h3 class="font-semibold text-lg">Process</h3>
+        <p class="text-sm text-neutral-400 mt-2">
+          Subtitle akan ditambahkan ke video
+        </p>
+      </div>
 
     </div>
 
+  </div>
 
-    <!-- FORM CARD -->
-    <div class="shadow-xl rounded-4xl p-6 md:p-8 max-w-3xl mx-auto">
+  <!-- CTA -->
+  <div class="text-center pb-24">
 
-        <form id="uploadForm"
-            method="POST"
-            action="/add-subtitle"
-            enctype="multipart/form-data"
-            class="space-y-6 max-w-2xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+      Siap bikin konten viral?
+    </h2>
 
-            {{ form.hidden_tag() }}
+    <a href="/register"
+       class="inline-block mt-6 px-6 py-3 rounded-lg font-semibold text-white
+              bg-gradient-to-r from-red-500 via-orange-400 to-orange-300
+              hover:from-red-400 hover:to-orange-200
+              transition-all duration-300 shadow-lg shadow-orange-400/20
+              hover:shadow-orange-400/40 hover:-translate-y-0.5">
+      Mulai Sekarang
+    </a>
 
-            <!-- FILE UPLOAD -->
-            <div class="flex justify-center">
-                <div class="flex items-center gap-4 w-full max-w-2xl">
-
-                    <!-- URL INPUT -->
-                    <div class="flex-[3]">
-                        {{ form.video_url(
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3
-                                   focus:ring-2 focus:ring-black focus:outline-none",
-                            placeholder="Paste YouTube / TikTok link"
-                        ) }}
-                    </div>
-
-                    <!-- OR -->
-                    <div class="text-gray-400 text-sm font-medium whitespace-nowrap">
-                        OR
-                    </div>
-
-                    <!-- FILE INPUT -->
-                     <div class="flex-[1]">
-                        <a href="/register" class="bg-black text-white px-4 py-2 rounded-lg cursor-pointer">
-                        Upload File
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SUBTITLE STYLE -->
-            <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700">
-                    {{ form.subtitleStyle.label.text }}
-                </label>
-
-                {{ form.subtitleStyle(
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3
-                        focus:ring-2 focus:ring-black focus:outline-none"
-                ) }}
-            </div>
-
-            <!-- SUBMIT BUTTON -->
-            <div>
-                {{ form.submit(
-                    class="w-full bg-black text-white py-3 rounded-lg
-                        hover:bg-gray-800 transition font-medium"
-                ) }}
-            </div>
-
-        </form>
-
-
-    </div>
+  </div>
 
 </section>
 
@@ -145,7 +203,7 @@ document.addEventListener("click", async (e) => {
             return;
         }
 
-        e.target.closest(".bg-white").remove();
+        btn.closest(".job-card").remove();
     } catch (err) {
         console.error(err);
         alert("Error deleting job");

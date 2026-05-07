@@ -54,6 +54,7 @@
                 Your browser does not support the video tag.
             </video>
             </div>
+            
             <!-- FEATURE LINKS -->
 <div class="mt-10 flex flex-wrap justify-center gap-3">
 
@@ -137,14 +138,18 @@
       </div>
 
       <!-- VIDEO -->
-      <div class="order-2 relative">
+      <div class="order-2 md:order-1 relative">
         <div class="absolute -inset-6 blur-3xl opacity-30 rounded-3xl
-                    bg-gradient-to-r from-red-500 via-orange-400 to-orange-300"></div>
+                      bg-gradient-to-r from-red-500 via-orange-400 to-orange-300"></div>
 
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl ">
-          <video class="w-full" autoplay muted loop playsinline>
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+          <!-- VIDEO (TEST) 
+          <video class="w-full" controls autoplay muted loop playsinline>
             <source src="/static/videos/sample_A.mp4" type="video/mp4">
           </video>
+          -->
+          <!-- IMAGE (TEST) -->
+          <img class="w-full" src="/static/videos/sample.jpg" alt="test image">
         </div>
       </div>
 
@@ -187,12 +192,16 @@
       <!-- VIDEO -->
       <div class="order-2 md:order-1 relative">
         <div class="absolute -inset-6 blur-3xl opacity-30 rounded-3xl
-                    bg-gradient-to-r from-red-500 via-orange-400 to-orange-300"></div>
+                      bg-gradient-to-r from-red-500 via-orange-400 to-orange-300"></div>
 
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-          <video class="w-full" autoplay muted loop playsinline>
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+          <!-- VIDEO (TEST) 
+          <video class="w-full" controls autoplay muted loop playsinline>
             <source src="/static/videos/sample_A.mp4" type="video/mp4">
           </video>
+          -->
+          <!-- IMAGE (TEST) -->
+          <img class="w-full" src="/static/videos/sample.jpg" alt="test image">
         </div>
       </div>
 
@@ -234,13 +243,18 @@
 
       <!-- VIDEO -->
       <div class="order-2 relative">
+        <div class="order-2 md:order-1 relative">
         <div class="absolute -inset-6 blur-3xl opacity-30 rounded-3xl
-                    bg-gradient-to-r from-red-500 via-orange-400 to-orange-300"></div>
+                      bg-gradient-to-r from-red-500 via-orange-400 to-orange-300"></div>
 
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-          <video class="w-full" autoplay muted loop playsinline >
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+          <!-- VIDEO (TEST) 
+          <video class="w-full" controls autoplay muted loop playsinline>
             <source src="/static/videos/sample_A.mp4" type="video/mp4">
           </video>
+          -->
+          <!-- IMAGE (TEST) -->
+          <img class="w-full" src="/static/videos/sample.jpg" alt="test image">
         </div>
       </div>
 
@@ -416,119 +430,131 @@
       </p>
     </div>
 
-    <!-- Pricing -->
-    <div class="grid gap-8 md:grid-cols-3">
+    <!-- ===================== -->
+    <!-- MAIN PLANS (3 COL) -->
+    <!-- ===================== -->
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 mb-16 text-center">
 
-      <!-- FREE -->
+      <!-- STARTER -->
+      <div class="group relative p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur hover:bg-white/10 transition duration-300 ">
+
+        <h2 class="text-xl font-semibold mb-2">Starter</h2>
+        <p class="text-neutral-400 mb-6">For growing creators</p>
+
+        <div class="mb-6">
+          <span class="text-4xl font-bold">Rp 20.000</span>
+          <span class="text-neutral-400 text-sm"> / bulan</span>
+        </div>
+
+        <ul class="text-sm text-neutral-300 space-y-3 mb-8">
+          <li>5 clip per hari</li>
+          <li>Auto subtitle</li>
+          <li>Semua aspect ratio</li>
+          <li>Proses lebih cepat</li>
+        </ul>
+
+        <a href="/register" class="block text-center w-full py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
+          Mulai Starter
+        </a>
+      </div>
+
+      <!-- PRO (HIGHLIGHT) -->
+      <div class="relative group p-[1px] rounded-2xl 
+                  bg-gradient-to-br from-red-500 via-orange-400 to-orange-300">
+
+        <div class="absolute inset-0 blur-xl opacity-30 
+                    bg-gradient-to-br from-red-500 via-orange-400 to-orange-300 
+                    group-hover:opacity-50 transition duration-500"></div>
+
+        <div class="relative h-full w-full rounded-2xl bg-black/90 p-8 backdrop-blur">
+
+          <div class="absolute top-0 right-0 px-3 py-1 text-xs font-semibold
+                      bg-gradient-to-r from-red-500 to-orange-400
+                      rounded-bl-xl rounded-tr-xl shadow-md">
+            MOST POPULAR
+          </div>
+
+          <h2 class="text-xl font-semibold mb-2">Pro</h2>
+          <p class="text-neutral-400 mb-6">For serious creators</p>
+
+          <div class="mb-6">
+            <span class="text-4xl font-bold">Rp 70.000</span>
+            <span class="text-neutral-400 text-sm"> / bulan</span>
+          </div>
+
+          <ul class="text-sm text-neutral-300 space-y-3 mb-8">
+            <li>10 clip per hari</li>
+            <li>Auto subtitle</li>
+            <li>Semua aspect ratio</li>
+            <li>Priority processing</li>
+          </ul>
+
+          <a href="/register"
+             class="block text-center w-full py-3 rounded-lg font-semibold
+                    bg-gradient-to-r from-red-500 via-orange-400 to-orange-300
+                    hover:from-red-400 hover:to-orange-200
+                    transition-all duration-300">
+            Upgrade ke Pro
+          </a>
+
+        </div>
+      </div>
+
+      <!-- MAX -->
       <div class="group relative p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur hover:bg-white/10 transition duration-300">
+
+        <h2 class="text-xl font-semibold mb-2">Max</h2>
+        <p class="text-neutral-400 mb-6">For power users</p>
+
+        <div class="mb-6">
+          <span class="text-4xl font-bold">Rp 150.000</span>
+          <span class="text-neutral-400 text-sm"> / bulan</span>
+        </div>
+
+        <ul class="text-sm text-neutral-300 space-y-3 mb-8">
+          <li>20 clip per hari</li>
+          <li>Auto subtitle</li>
+          <li>Semua aspect ratio</li>
+          <li>Prioritas tertinggi</li>
+        </ul>
+
+        <a href="/register" class="block text-center w-full py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
+          Upgrade ke Max
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- FREE PLAN (BOTTOM) -->
+    <!-- ===================== -->
+    <div class="w-full mx-auto">
+
+      <div class="group relative p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur text-center hover:bg-white/10 transition duration-300">
 
         <h2 class="text-xl font-semibold mb-2">Free</h2>
         <p class="text-neutral-400 mb-6">Perfect for trying out</p>
 
         <div class="mb-6">
-          <span class="text-4xl font-bold">$0</span>
-          <span class="text-neutral-400 text-sm"> / month</span>
+          <span class="text-4xl font-bold">Rp 0</span>
+          
         </div>
 
         <ul class="text-sm text-neutral-300 space-y-3 mb-8">
-          <li>✔ 5 clips per month</li>
-          <li>✔ Auto subtitles</li>
-          <li>✔ Basic aspect ratios</li>
-          <li class="line-through text-neutral-500">Premium features</li>
+          <li>3 clip total (tidak reset)</li>
+          <li>Auto subtitle</li>
+          <li>Basic aspect ratio</li>
+          <li class="line-through text-neutral-500">Fitur premium</li>
         </ul>
 
-        {% if session.get("user_id") %}
-        <a href="/auto-clipper" class="block text-center w-full py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
-          Start Free
+        <a href="/register" class="block text-center w-full py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
+          Mulai Gratis
         </a>
-        {% else %}
-        <a href="{{ url_for('auth.register') }}" class="block text-center w-full py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
-          Sign Up Free
-        </a>
-        {% endif %}
-      </div>
 
-      <!-- PRO (HIGHLIGHT) -->
-<div class="relative group p-[1px] rounded-2xl 
-            bg-gradient-to-br from-red-500 via-orange-400 to-orange-300">
-
-  <!-- Glow -->
-  <div class="absolute inset-0 blur-xl opacity-30 
-              bg-gradient-to-br from-red-500 via-orange-400 to-orange-300 
-              group-hover:opacity-50 transition duration-500"></div>
-
-  <div class="relative h-full w-full rounded-2xl bg-black/90 p-8 backdrop-blur">
-
-    <!-- Badge -->
-    <div class="absolute top-0 right-0 px-3 py-1 text-xs font-semibold
-                bg-gradient-to-r from-red-500 to-orange-400
-                rounded-bl-xl rounded-tr-xl shadow-md">
-      MOST POPULAR
-    </div>
-
-    <h2 class="text-xl font-semibold mb-2">Pro</h2>
-    <p class="text-neutral-400 mb-6">For serious creators</p>
-
-    <div class="mb-6">
-      <span class="text-4xl font-bold">$19</span>
-      <span class="text-neutral-400 text-sm"> / month</span>
-    </div>
-
-    <ul class="text-sm text-neutral-300 space-y-3 mb-8">
-      <li>✔ 100 clips per month</li>
-      <li>✔ Auto subtitles</li>
-      <li>✔ All aspect ratios</li>
-      <li>✔ Priority processing</li>
-    </ul>
-
-    {% if session.get("user_id") %}
-    <a href="{{ url_for('payment.buytokenpage') }}"
-       class="block text-center w-full py-3 rounded-lg font-semibold
-              bg-gradient-to-r from-red-500 via-orange-400 to-orange-300
-              hover:from-red-400 hover:to-orange-200
-              transition-all duration-300
-              shadow-lg shadow-orange-400/20
-              hover:shadow-orange-400/40 hover:-translate-y-0.5">
-      Upgrade to Pro
-    </a>
-    {% else %}
-    <a href="{{ url_for('auth.register') }}"
-       class="block text-center w-full py-3 rounded-lg font-semibold
-              bg-gradient-to-r from-red-500 via-orange-400 to-orange-300
-              hover:from-red-400 hover:to-orange-200
-              transition-all duration-300
-              shadow-lg shadow-orange-400/20
-              hover:shadow-orange-400/40 hover:-translate-y-0.5">
-      Sign Up & Upgrade
-    </a>
-    {% endif %}
-
-  </div>
-</div>
-
-      <!-- ENTERPRISE -->
-      <div class="group relative p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur hover:bg-white/10 transition duration-300">
-
-        <h2 class="text-xl font-semibold mb-2">Enterprise</h2>
-        <p class="text-neutral-400 mb-6">For teams & business</p>
-
-        <div class="mb-6">
-          <span class="text-4xl font-bold">Custom</span>
-        </div>
-
-        <ul class="text-sm text-neutral-300 space-y-3 mb-8">
-          <li>✔ Unlimited clips</li>
-          <li>✔ Team accounts</li>
-          <li>✔ Dedicated support</li>
-          <li>✔ Custom features</li>
-        </ul>
-
-        <a href="/contact" class="block text-center w-full py-3 rounded-lg bg-white/10 hover:bg-white/20 transition">
-          Contact Sales
-        </a>
       </div>
 
     </div>
+
   </div>
 </section>
 
@@ -591,7 +617,7 @@ document.addEventListener("click", async (e) => {
             return;
         }
 
-        e.target.closest(".bg-white").remove();
+        btn.closest(".job-card").remove();
     } catch (err) {
         console.error(err);
         alert("Error deleting job");

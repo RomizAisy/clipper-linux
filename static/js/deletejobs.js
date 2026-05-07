@@ -14,7 +14,7 @@ document.addEventListener("click", async (e) => {
             return;
         }
 
-        e.target.closest(".bg-white").remove();
+        e.target.closest(".job-card").remove();
     } catch (err) {
         console.error(err);
         alert("Error deleting job");
