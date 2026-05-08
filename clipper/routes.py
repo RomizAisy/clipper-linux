@@ -133,13 +133,25 @@ def download_from_link(url, job_dir):
     output = os.path.join(job_dir, "input.%(ext)s")
 
     ydl_opts = {
-        "format": "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
-        "outtmpl": output,
-        "cookiefile": "/root/cookies.txt",
-        "quiet": True,
-        "noplaylist": True,
-        "merge_output_format": "mp4"
-    }
+    "format": "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
+    "outtmpl": output,
+    "cookiefile": "/app/cookies.txt",
+    "quiet": True,
+    "noplaylist": True,
+    "merge_output_format": "mp4",
+
+    "js_runtimes": {
+        "node": "node"
+    },
+
+    "extractor_args": {
+        "youtube": {
+            "player_client": ["android"]
+        }
+    },
+
+    "remote_components": ["ejs:github"]
+}
 
     with YoutubeDL(ydl_opts) as ydl:
         # Get info WITHOUT downloading first
