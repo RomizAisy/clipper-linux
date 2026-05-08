@@ -12,7 +12,7 @@ from payment import payment_bp
 from clipper import clipper_bp
 from autosubtitle import autosub_bp
 from aspectratio import aspect_bp
-from music import music_bp
+
 
 load_dotenv(find_dotenv())
 
