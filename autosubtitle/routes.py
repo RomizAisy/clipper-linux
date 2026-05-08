@@ -152,10 +152,18 @@ def download_from_link(url, job_dir):
     # ---------- CHECK VIDEO INFO ----------
     info_command = [
         "yt-dlp",
+
         "--cookies", "/app/cookies.txt",
+
         "--js-runtimes", "node",
+
         "--remote-components", "ejs:github",
+
+        "--extractor-args",
+        "youtube:player_client=android",
+
         "--dump-json",
+
         url
     ]
 
@@ -172,6 +180,7 @@ def download_from_link(url, job_dir):
 
     if duration > MAX_SECONDS:
         mins = duration // 60
+
         raise ValueError(
             f"Video too long ({mins} minutes). Max allowed is 60 minutes."
         )
@@ -179,18 +188,42 @@ def download_from_link(url, job_dir):
     # ---------- DOWNLOAD ----------
     download_command = [
         "yt-dlp",
+
         "--cookies", "/app/cookies.txt",
+
         "--js-runtimes", "node",
+
         "--remote-components", "ejs:github",
-        "-f", "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
-        "--merge-output-format", "mp4",
-        "-o", output,
+
+        "--extractor-args",
+        "youtube:player_client=android",
+
+        "-f",
+        "bv*[height<=1080]+ba/b",
+
+        "--merge-output-format",
+        "mp4",
+
+        "-o",
+        output,
+
         url
     ]
 
     subprocess.run(download_command, check=True)
 
-    return os.path.join(job_dir, "input.mp4")
+    # ---------- FIND OUTPUT ----------
+    for file in os.listdir(job_dir):
+
+        if file.startswith("input."):
+
+            full_path = os.path.join(job_dir, file)
+
+            print("DOWNLOADED:", full_path)
+
+            return full_path
+
+    raise FileNotFoundError("Downloaded video not found")
 
 @autosub_bp.route("/autosub-status/<int:job_id>")
 def autosub_status(job_id):
