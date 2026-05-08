@@ -3,6 +3,8 @@ FROM python:3.12-slim
 # Install system deps (IMPORTANT for your project)
 RUN apt-get update && apt-get install -y \
     ffmpeg \
+    nodejs \
+    npm \
     git \
     && rm -rf /var/lib/apt/lists/*
 

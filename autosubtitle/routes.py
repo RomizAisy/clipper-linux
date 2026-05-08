@@ -150,6 +150,7 @@ def download_from_link(url, job_dir):
     ydl_opts = {
         "format": "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
         "outtmpl": output,
+        "cookiefile": "/root/cookies.txt",
         "quiet": True,
         "noplaylist": True,
         "merge_output_format": "mp4"
