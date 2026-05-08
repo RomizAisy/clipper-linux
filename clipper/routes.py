@@ -141,9 +141,8 @@ def download_from_link(url, job_dir):
     "merge_output_format": "mp4",
 
     "js_runtimes": {
-        "node": "node"
+    "node": {}
     },
-
     "extractor_args": {
         "youtube": {
             "player_client": ["android"]
