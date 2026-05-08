@@ -38,7 +38,7 @@ def create_app():
     app.register_blueprint(clipper_bp)
     app.register_blueprint(autosub_bp)
     app.register_blueprint(aspect_bp)
-    app.register_blueprint(music_bp)
+ 
 
 
 
