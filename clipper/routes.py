@@ -1,7 +1,8 @@
 from .forms import ClipperFileForm
 import os, tempfile,  shutil
 from werkzeug.utils import secure_filename
-
+import json
+import subprocess
 from flask import Blueprint, render_template, session, jsonify, redirect, url_for, abort, send_from_directory
 
 
@@ -16,7 +17,6 @@ from datetime import date
 
 from flask import json
 
-from yt_dlp import YoutubeDL
 
 from extensions import db
 from extensions import clipper_queue
@@ -127,46 +127,61 @@ def clipper():
     return jsonify({"job_id": job_id})
 
 
-MAX_SECONDS = 60 * 60   #60 minutes 
+MAX_SECONDS = 60 * 60  # 60 minutes
+
 
 def download_from_link(url, job_dir):
+
     output = os.path.join(job_dir, "input.%(ext)s")
 
-    ydl_opts = {
-    "format": "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
-    "outtmpl": output,
-    "cookiefile": "/app/cookies.txt",
-    "quiet": True,
-    "noplaylist": True,
-    "merge_output_format": "mp4",
+    # ---------- CHECK VIDEO INFO ----------
+    info_command = [
+        "yt-dlp",
+        "--cookies", "/app/cookies.txt",
+        "--js-runtimes", "node",
+        "--remote-components", "ejs:github",
+        "--dump-json",
+        url
+    ]
 
-    "js_runtimes": {
-    "node": {}
-    },
-    "extractor_args": {
-        "youtube": {
-            "player_client": ["android"]
-        }
-    },
+    result = subprocess.run(
+        info_command,
+        capture_output=True,
+        text=True,
+        check=True
+    )
 
-    "remote_components": ["ejs:github"]
-}
+    info = json.loads(result.stdout)
 
-    with YoutubeDL(ydl_opts) as ydl:
-        # Get info WITHOUT downloading first
-        info = ydl.extract_info(url, download=False)
+    duration = info.get("duration", 0)
 
-        duration = info.get("duration", 0)
+    if duration > MAX_SECONDS:
+        mins = duration // 60
+        raise ValueError(
+            f"Video too long ({mins} minutes). Max allowed is 60 minutes."
+        )
 
-        if duration > MAX_SECONDS:
-            mins = duration // 60
-            raise ValueError(f"Video too long ({mins} minutes). Max allowed is X minutes.")
+    # ---------- DOWNLOAD ----------
+    download_command = [
+        "yt-dlp",
+        "--cookies", "/app/cookies.txt",
+        "--js-runtimes", "node",
+        "--remote-components", "ejs:github",
 
-        # ⬇ Now download if safe
-        info = ydl.extract_info(url, download=True)
-        ext = info.get("ext", "mp4")
+        "-f",
+        "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
 
-    return os.path.join(job_dir, f"input.{ext}")
+        "--merge-output-format", "mp4",
+
+        "-o",
+        output,
+
+        url
+    ]
+
+    subprocess.run(download_command, check=True)
+
+    return os.path.join(job_dir, "input.mp4")
 
 @clipper_bp.route("/clipper-status/<int:job_id>")
 def clipper_status(job_id):

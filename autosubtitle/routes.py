@@ -7,13 +7,13 @@ from werkzeug.utils import secure_filename
 
 import os, tempfile, time, traceback, shutil
 from threading import Thread
-
+import subprocess
+import json
 from autosubtitle.tasks.autosub_tasks import process_autosubs_background 
 
 from helper.preview_download import get_user_jobs_with_outputs, generate_thumbnail
 from helper.aspect_ratio import convert_aspect
 
-from yt_dlp import YoutubeDL
 
 from extensions import db
 from models import VideoJob, User
@@ -142,48 +142,55 @@ def add_subtitle():
     return jsonify({"job_id": job_id})
 
 
-MAX_SECONDS = 60 * 60   #60 minutes 
+MAX_SECONDS = 60 * 60  # 60 minutes
+
 
 def download_from_link(url, job_dir):
+
     output = os.path.join(job_dir, "input.%(ext)s")
 
-    ydl_opts = {
-    "format": "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
-    "outtmpl": output,
-    "cookiefile": "/app/cookies.txt",
-    "quiet": True,
-    "noplaylist": True,
-    "merge_output_format": "mp4",
+    # ---------- CHECK VIDEO INFO ----------
+    info_command = [
+        "yt-dlp",
+        "--cookies", "/app/cookies.txt",
+        "--js-runtimes", "node",
+        "--remote-components", "ejs:github",
+        "--dump-json",
+        url
+    ]
 
-    "js_runtimes": {
-    "node": {}
-    },
+    result = subprocess.run(
+        info_command,
+        capture_output=True,
+        text=True,
+        check=True
+    )
 
-    "extractor_args": {
-        "youtube": {
-            "player_client": ["android"]
-        }
-    },
+    info = json.loads(result.stdout)
 
-    "remote_components": ["ejs:github"]
-}
+    duration = info.get("duration", 0)
 
-    with YoutubeDL(ydl_opts) as ydl:
-        # Get info WITHOUT downloading first
-        info = ydl.extract_info(url, download=False)
+    if duration > MAX_SECONDS:
+        mins = duration // 60
+        raise ValueError(
+            f"Video too long ({mins} minutes). Max allowed is 60 minutes."
+        )
 
-        duration = info.get("duration", 0)
+    # ---------- DOWNLOAD ----------
+    download_command = [
+        "yt-dlp",
+        "--cookies", "/app/cookies.txt",
+        "--js-runtimes", "node",
+        "--remote-components", "ejs:github",
+        "-f", "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
+        "--merge-output-format", "mp4",
+        "-o", output,
+        url
+    ]
 
-        if duration > MAX_SECONDS:
-            mins = duration // 60
-            raise ValueError(f"Video too long ({mins} minutes). Max allowed is X minutes.")
+    subprocess.run(download_command, check=True)
 
-        # ⬇ Now download if safe
-        info = ydl.extract_info(url, download=True)
-        ext = info.get("ext", "mp4")
-
-    return os.path.join(job_dir, f"input.{ext}")
-
+    return os.path.join(job_dir, "input.mp4")
 
 @autosub_bp.route("/autosub-status/<int:job_id>")
 def autosub_status(job_id):
