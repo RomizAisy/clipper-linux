@@ -12,6 +12,7 @@ services:
       - .:/app
       - ./uploads:/app/uploads
       - ~/.cache:/root/.cache
+      - ./cookies.txt:/app/cookies.txt
     depends_on:
       - redis
     restart: always
