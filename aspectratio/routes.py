@@ -176,6 +176,9 @@ def download_from_link(url, job_dir):
     info_command = [
         "yt-dlp",
         "--cookies", "/app/cookies.txt",
+        "--js-runtimes", "node",
+        "--no-playlist",
+        "--geo-bypass",
         "--dump-json",
         url
     ]
@@ -207,6 +210,9 @@ def download_from_link(url, job_dir):
     download_command = [
         "yt-dlp",
         "--cookies", "/app/cookies.txt",
+        "--js-runtimes", "node",
+        "--no-playlist",
+        "--geo-bypass",
         "-f", "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
         "--merge-output-format", "mp4",
         "-o", output,
