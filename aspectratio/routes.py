@@ -171,14 +171,11 @@ def download_from_link(url, job_dir):
 
     output = os.path.join(job_dir, "input.%(ext)s")
 
-    MAX_SECONDS = 60 * 60  # 60 minutes
+    MAX_SECONDS = 60 * 60
 
-    # ---------- CHECK VIDEO INFO ----------
     info_command = [
         "yt-dlp",
         "--cookies", "/app/cookies.txt",
-        "--js-runtimes", "node",
-        "--remote-components", "ejs:github",
         "--dump-json",
         url
     ]
@@ -186,9 +183,16 @@ def download_from_link(url, job_dir):
     result = subprocess.run(
         info_command,
         capture_output=True,
-        text=True,
-        check=True
+        text=True
     )
+
+    # DEBUG
+    print("RETURN CODE:", result.returncode)
+    print("STDOUT:", result.stdout)
+    print("STDERR:", result.stderr)
+
+    if result.returncode != 0:
+        raise Exception(f"yt-dlp info failed:\n{result.stderr}")
 
     info = json.loads(result.stdout)
 
@@ -200,21 +204,30 @@ def download_from_link(url, job_dir):
             f"Video too long ({mins} minutes). Max allowed is 60 minutes."
         )
 
-    # ---------- DOWNLOAD ----------
     download_command = [
         "yt-dlp",
         "--cookies", "/app/cookies.txt",
-        "--js-runtimes", "node",
-        "--remote-components", "ejs:github",
         "-f", "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]",
         "--merge-output-format", "mp4",
         "-o", output,
         url
     ]
 
-    subprocess.run(download_command, check=True)
+    download_result = subprocess.run(
+        download_command,
+        capture_output=True,
+        text=True
+    )
+
+    print("DOWNLOAD STDERR:", download_result.stderr)
+
+    if download_result.returncode != 0:
+        raise Exception(
+            f"yt-dlp download failed:\n{download_result.stderr}"
+        )
 
     return os.path.join(job_dir, "input.mp4")
+
 @aspect_bp.route("/aspect-status/<int:job_id>")
 def aspect_status(job_id):
     if "user_id" not in session:
